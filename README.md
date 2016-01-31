@@ -31,3 +31,43 @@ colnames(features) <- t(feature.names[2])
 colnames(activity) <- "Activity"
 colnames(subject) <- "Subject"
 complete.data <- cbind(features,activity,subject)
+
+## Part 2 - Extracts only the measurements on the mean and standard deviation for each measurement
+
+### Step 1: Choose the columns which have "mean" or "std" in their names
+columns.mean.std <- grep(".*Mean.*|.*Std.*", names(complete.data), ignore.case = TRUE)
+
+### Step 2: Adding "Activity" and "Subject" columns for the completeness of data
+required.columns <- c(columns.mean.std, 562, 563)
+
+### Step 3: Extracting data for selected columns from the complete dataset
+extracted.data <- complete.data[,required.columns]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
