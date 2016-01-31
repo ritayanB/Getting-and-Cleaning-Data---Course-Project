@@ -1,14 +1,33 @@
-# Code Book
+# Getting and Cleaning Data - Course Project
 
-## variables
+### Reading meta-data
 
-### subject
+feature.names <- read.table("UCI HAR Dataset/features.txt")
+activity.labels <- read.table("UCI HAR Dataset/activity_labels.txt", header = FALSE)
 
-| id |              name |
-|---:|:-----------------:|
-|  1 |           WALKING|
-|  2 |  WALKING_UPSTAIRS|
-|  3 | WALKING_DOWNSTAIRS|
-|  4|            SITTING|
-|  5|           STANDING|
-|  6|            LAYING|
+### Reading training data
+
+subject.train <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE)
+activity.train <- read.table("UCI HAR Dataset/train/y_train.txt", header = FALSE)
+features.train <- read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE)
+
+### Reading testing data
+
+subject.test <- read.table("UCI HAR Dataset/test/subject_test.txt", header = FALSE)
+activity.test <- read.table("UCI HAR Dataset/test/y_test.txt", header = FALSE)
+features.test <- read.table("UCI HAR Dataset/test/X_test.txt", header = FALSE)
+
+## Part 1 - Merge the training and the test sets to create a single dataset
+
+### Step 1: Binding training and testing data, which we read from the files are bound into single dataset
+subject <- rbind(subject.train, subject.test)
+activity <- rbind(activity.train, activity.test)
+features <- rbind(features.train, features.test)
+
+### Step 2: Naming the "features" columns
+colnames(features) <- t(feature.names[2])
+
+### Step 3: Merging features, activity, and subject
+colnames(activity) <- "Activity"
+colnames(subject) <- "Subject"
+complete.data <- cbind(features,activity,subject)
