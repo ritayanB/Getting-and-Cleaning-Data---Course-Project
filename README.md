@@ -44,7 +44,17 @@ required.columns <- c(columns.mean.std, 562, 563)
 extracted.data <- complete.data[,required.columns]
 
 
+## Part 3 - Uses descriptive activity names to name the activities in the data set
+### Step 1: Change the data type of the "Activity" column
+extracted.data$Activity <- as.character(extracted.data$Activity)
 
+### Step 2: Assigning the corresponding activity names from activity labels
+for (i in 1:6){
+	extracted.data$Activity[extracted.data$Activity == i] <- as.character(activity.labels[i,2])
+}
+
+### Step 3: Changing the data type to factor to facilitate the future/probable uses
+extracted.data$Activity <- as.factor(extracted.data$Activity)
 
 
 
