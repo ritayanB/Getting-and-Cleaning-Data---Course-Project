@@ -108,12 +108,20 @@ names(extracted.data) <- gsub("Gyro", "Gyroscope", names(extracted.data))
 names(extracted.data) <- gsub("Mag", "Magnitude", names(extracted.data))
 names(extracted.data) <- gsub("BodyBody", "Body", names(extracted.data))
 
+## Part 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
+### Step 1: Setting subject as factor variable and converting "extracted.data" into data.table
+extracted.data$Subject <- as.factor(extracted.data$Subject)
+extracted.data <- data.table(extracted.data)
 
+### Step 2: Getting the average (mean) data for each activity and subject combination
+tidyData <- aggregate(. ~Subject + Activity, extracted.data, mean)
 
+### Step 3: Ordering the data according to the Subject and Activity
+tidyData <- tidyData[order(tidyData$Subject,tidyData$Activity),]
 
-
-
+### Step 4: Writing the file into disk for future upload
+write.table(tidyData, file = "Tidy.txt", row.names = FALSE)
 
 
 
