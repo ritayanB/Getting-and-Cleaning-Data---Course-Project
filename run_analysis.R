@@ -59,23 +59,3 @@ tidy.data <- aggregate(. ~Subject + Activity, extracted.data, mean)
 tidy.data <- tidy.data[order(tidy.data$Subject,tidy.data$Activity),]
 
 write.table(tidy.data, file = "Tidy.txt", row.names = FALSE)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
